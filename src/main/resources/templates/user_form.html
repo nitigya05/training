@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User and Bank Details</title>
+</head>
+<body>
+<h1>User and Bank Details</h1>
+<a th:href="@{/buyers/new}">Add New Buyer</a><br/>
+<a th:href="@{/buyers/list}">List of Buyer</a><br/>
+<a th:href="@{/user/invoice/upload-page}">Invoice Upload page</a><br/>
+<a th:href="@{/users/list}">List of User</a><br/>
+<a th:href="@{/invoice/list}">List of Invoice</a><br/>
+<br/><br/>
+<form th:action="@{/users/saveOrUpdate}" th:object="${user}" method="post">
+    <div th:if="${#fields.hasErrors()}">
+        <div class="alert alert-danger" th:each="error : ${#fields.errors()}">
+            <p th:text="${error.field} + ': ' + ${error.defaultMessage()}"></p>
+        </div>
+    </div>
+
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" th:field="*{user.name}" required>
+    </div>
+
+    <div>
+        <label for="address">Address:</label>
+        <textarea th:field="*{user.address}"></textarea>
+    </div>
+
+    <div>
+        <label for="gstNo">GST No.:</label>
+        <input type="text" th:field="*{user.gstNo}" required>
+    </div>
+
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" th:field="*{user.email}" required>
+    </div>
+
+    <div>
+        <label for="pan">PAN:</label>
+        <input type="text" th:field="*{user.pan}" required>
+    </div>
+
+    <div>
+        <label for="bankName">Bank Name:</label>
+        <input type="text" th:field="*{user.bankDetails.bankName}" required>
+    </div>
+
+    <div>
+        <label for="accountNo">Account No.:</label>
+        <input type="text" th:field="*{user.bankDetails.accountNo}" required>
+    </div>
+
+    <div>
+        <label for="branch">Branch:</label>
+        <input type="text" th:field="*{user.bankDetails.branch}" required>
+    </div>
+
+    <div>
+        <label for="ifscCode">IFSC Code:</label>
+        <input type="text" th:field="*{user.bankDetails.ifscCode}" required>
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>

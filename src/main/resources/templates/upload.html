@@ -1,0 +1,34 @@
+<!-- src/main/resources/templates/upload.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>File Upload</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1>Upload File</h1>
+
+<a th:href="@{/buyers/new}">Add New Buyer</a><br/>
+<a th:href="@{/buyers/list}">List of Buyer</a><br/>
+<a th:href="@{/user/invoice/upload-page}">Invoice Upload page</a><br/>
+<a th:href="@{/users/list}">List of User</a><br/>
+<a th:href="@{/invoice/list}">List of Invoice</a><br/>
+<br/><br/>
+
+<form method="POST" th:action="@{/api/upload/upload}" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".xlsx,.xls">
+    <button type="submit">Upload</button>
+</form>
+
+<div th:if="${message}">
+    <br/><br/>
+    <p th:text="${message}"></p><br/>
+    <a th:href="@{/buyers/new}">Add New Buyer</a><br/>
+    <a th:href="@{/buyers/list}">List of Buyer</a><br/>
+    <a th:href="@{/user/invoice/upload-page}">Invoice Upload page</a><br/>
+    <a th:href="@{/users/list}">List of User</a><br/>
+    <a th:href="@{/invoice/list}">List of Invoice</a><br/>
+    <br/><br/>
+</div>
+</body>
+</html>

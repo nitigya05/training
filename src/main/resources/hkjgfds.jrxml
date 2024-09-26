@@ -1,0 +1,78 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="Invoice" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1b2c3d4-5678-90ab-cdef-1234567890ab">
+	<parameter name="userDetails" class="com.example.Invoice_Generator.domain.UserDetails"/>
+	<parameter name="bankDetails" class="com.example.Invoice_Generator.domain.BankDetails"/>
+	<parameter name="buyerDetails" class="com.example.Invoice_Generator.domain.BuyerDetails"/>
+	<parameter name="transportDetails" class="com.example.Invoice_Generator.domain.TransportDetails"/>
+	<title height="100">
+		<element kind="staticText" uuid="785e59f2-acac-49c0-a359-4505124aeee1" x="0" y="0" width="500" height="20">
+			<text><![CDATA[INVOICE]]></text>
+		</element>
+		<element kind="textField" uuid="1b29b212-5b68-4e6a-9d93-ff707c678e53" x="0" y="25" width="300" height="20">
+			<expression><![CDATA[$P{userDetails}.name]]></expression>
+		</element>
+		<element kind="textField" uuid="38d81828-df66-4fb6-a207-33a534942b2e" x="0" y="45" width="300" height="20">
+			<expression><![CDATA[$P{userDetails}.address]]></expression>
+		</element>
+		<element kind="textField" uuid="dc501914-d0c0-4ae5-a192-9fbffc2ed88e" x="0" y="65" width="300" height="20">
+			<expression><![CDATA["GST No: " + $P{userDetails}.gstNo]]></expression>
+		</element>
+		<element kind="textField" uuid="104025ed-8e89-4b19-b65b-74976d3bc413" x="0" y="85" width="300" height="15">
+			<expression><![CDATA["Email: " + $P{userDetails}.email]]></expression>
+		</element>
+	</title>
+	<detail>
+		<band height="210">
+			<element kind="staticText" uuid="ad98965e-c11f-49d5-af32-388d8eb2e6fa" x="0" y="0" width="500" height="20">
+				<text><![CDATA[Buyer Information]]></text>
+			</element>
+			<element kind="textField" uuid="a3b8ace0-3dbd-4b6d-ade0-5e48424c8fba" x="0" y="25" width="300" height="20">
+				<expression><![CDATA[$P{buyerDetails}.name]]></expression>
+			</element>
+			<element kind="textField" uuid="8c1b414e-bb6b-48f3-abf5-0195bc28d05d" x="0" y="45" width="300" height="20">
+				<expression><![CDATA[$P{buyerDetails}.address]]></expression>
+			</element>
+			<element kind="textField" uuid="2fc839a3-62cb-419d-bab9-be69c9e4c631" x="0" y="65" width="300" height="20">
+				<expression><![CDATA["GST No: " + $P{buyerDetails}.gstNo]]></expression>
+			</element>
+			<element kind="staticText" uuid="6517727d-7f24-46a3-b3ad-28f1c0b25340" x="0" y="90" width="500" height="20">
+				<text><![CDATA[Service Details]]></text>
+			</element>
+			<element kind="textField" uuid="42473d92-d2e3-47c4-bbfc-f39a98ca4941" x="0" y="115" width="500" height="20">
+				<expression><![CDATA["Invoice No: " + $P{transportDetails}.invoiceNo]]></expression>
+			</element>
+			<element kind="textField" uuid="0e227b58-66c8-4753-b771-efa9413f942f" x="0" y="135" width="500" height="20">
+				<expression><![CDATA["Date of Service: " + $P{transportDetails}.date]]></expression>
+			</element>
+			<element kind="textField" uuid="00e74724-693e-4c44-a29a-0c0ad9362238" x="0" y="155" width="500" height="20">
+				<expression><![CDATA["Vehicle No: " + $P{transportDetails}.vehicleNo]]></expression>
+			</element>
+			<element kind="textField" uuid="0939ee66-582c-4416-b497-e36188200207" x="0" y="175" width="500" height="20">
+				<expression><![CDATA["Total KM: " + $P{transportDetails}.actualKm + " | Extra KM: " + $P{transportDetails}.extraKm]]></expression>
+			</element>
+			<element kind="textField" uuid="63e3b977-4353-40c6-b2cc-f472737b8776" x="0" y="195" width="500" height="15">
+				<expression><![CDATA["Net Amount: " + $P{transportDetails}.netAmount]]></expression>
+			</element>
+		</band>
+	</detail>
+	<summary height="150">
+		<element kind="staticText" uuid="c1b90cb6-71d5-433f-b88c-e47bd3e02ec2" x="0" y="0" width="500" height="20">
+			<text><![CDATA[Bank Details]]></text>
+		</element>
+		<element kind="textField" uuid="90231410-849e-4b3e-90c4-7bd196c7dc90" x="0" y="25" width="500" height="20">
+			<expression><![CDATA["Bank Name: " + $P{bankDetails}.bankName]]></expression>
+		</element>
+		<element kind="textField" uuid="f698a938-9307-4292-bdbb-ff3d51eab269" x="0" y="45" width="500" height="20">
+			<expression><![CDATA["Account No: " + $P{bankDetails}.accountNo]]></expression>
+		</element>
+		<element kind="textField" uuid="90e24afa-cd9b-4f2b-aa33-7881a65133f1" x="0" y="65" width="500" height="20">
+			<expression><![CDATA["IFSC Code: " + $P{bankDetails}.ifscCode]]></expression>
+		</element>
+		<element kind="textField" uuid="ac0f0f89-5428-4063-81d1-a49042fe55ae" x="0" y="85" width="500" height="20">
+			<expression><![CDATA["PAN: " + $P{userDetails}.pan]]></expression>
+		</element>
+		<element kind="textField" uuid="89f282a1-9a1f-44b1-9341-d4b441f99cc7" x="0" y="110" width="500" height="20">
+			<expression><![CDATA["For " + $P{userDetails}.name]]></expression>
+		</element>
+	</summary>
+</jasperReport>
