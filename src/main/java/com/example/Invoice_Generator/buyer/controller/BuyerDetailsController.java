@@ -19,7 +19,7 @@ public class BuyerDetailsController {
 
     // Display all buyers
     @GetMapping("/list")
-    public String getAllBuyers(Model model) {
+    public String getAllBuyersss(Model model) {
         List<BuyerDetails> buyers = buyerDetailsService.getAllBuyers();
         model.addAttribute("buyers", buyers);
         return "buyer_list";
