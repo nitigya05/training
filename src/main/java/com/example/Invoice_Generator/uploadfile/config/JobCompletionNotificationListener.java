@@ -1,4 +1,4 @@
-package com.example.Invoice_Generator.uploadfile;
+package com.example.Invoice_Generator.uploadfile.config;
 
 
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.example.Invoice_Generator.uploadfile;
+package com.example.Invoice_Generator.uploadfile.config;
 
 import com.example.Invoice_Generator.domain.TransportDetails;
 import com.example.Invoice_Generator.domain.dao.TransportDetailsRepo;
