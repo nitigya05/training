@@ -93,8 +93,8 @@ public class ExcelService {
 
 
 
-    private TransportDetails mapRowToTransportDetails(Row row) {
-        System.out.println("inside mapRowToTransportDetails" +row.getCell(2).getLocalDateTimeCellValue().toLocalDate());
+    public TransportDetails mapRowToTransportDetails(Row row) {
+  System.out.println("inside mapRowToTransportDetails" +row.getCell(2).getLocalDateTimeCellValue().toLocalDate());
         TransportDetails details = new TransportDetails();
 //        details.setSrNo(row.getCell(0).getStringCellValue());
 //        details.setInvoiceNo(row.getCell(1).getStringCellValue());

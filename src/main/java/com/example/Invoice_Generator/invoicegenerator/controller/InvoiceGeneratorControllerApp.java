@@ -1,19 +1,20 @@
 package com.example.Invoice_Generator.invoicegenerator.controller;
 
 import com.example.Invoice_Generator.domain.TransportDetails;
+import com.example.Invoice_Generator.domain.TransportDetailsWORelationShip;
 import com.example.Invoice_Generator.domain.dao.TransportDetailsRepo;
 import com.example.Invoice_Generator.invoicegenerator.restcontroller.InvoiceGeneratorRestControllerApp;
 import com.example.Invoice_Generator.invoicegenerator.service.InvoiceGeneratorService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/invoice")
@@ -25,16 +26,11 @@ public class InvoiceGeneratorControllerApp {
     @Autowired
     private TransportDetailsRepo repository;
 
+
+
     @Autowired
     InvoiceGeneratorRestControllerApp invoiceGeneratorRestControllerApp;
 
-    // List all TransportDetails
-    @GetMapping("/list")
-    public String viewTransportDetails(Model model) {
-        List<TransportDetails> transportDetails = service.findTransportDetailsAll();
-        model.addAttribute("transportDetails", transportDetails);
-        return "invoicelist";
-    }
 
 
 
@@ -76,4 +72,62 @@ public class InvoiceGeneratorControllerApp {
         repository.delete(transportDetails);
         return "redirect:/";
     }
+
+    @GetMapping("/list")
+    public String viewProductsPage(Model model,
+                                   @RequestParam(defaultValue = "1") int page,
+                                   @RequestParam(defaultValue = "50") int size) {
+        Page<TransportDetailsWORelationShip> productPage = service.findPaginated(page, size);
+
+
+        int startPage = Math.max(1, page - 5); // Show 2 pages before the current page
+        int endPage = Math.min(productPage.getTotalPages(), page +10); // Show 2 pages after the current page
+
+// Pass these to the model
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("productPage", productPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        return "invoicelist";
+    }
+
+
+    // Show the update form
+    @GetMapping("/update/{id}")
+    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
+        TransportDetailsWORelationShip invoice = service.findById(id);
+        if (invoice == null) {
+            // Handle invoice not found (you can return an error page if needed)
+            return "error";
+        }
+        model.addAttribute("invoice", invoice);
+        return "update-invoice";
+    }
+
+    // Handle the update form submission
+    @PostMapping("/update/{id}")
+    public String updateInvoice(@PathVariable("id") Long id, @ModelAttribute("invoice") TransportDetailsWORelationShip updatedInvoice) {
+        service.updateInvoice(id, updatedInvoice);
+        return "redirect:/invoices/list"; // Redirect to a list page or success page
+    }
+
+    @GetMapping("/search")
+    public String searchInvoices(@RequestParam("searchTerm") String searchTerm, Model model,
+                                 @RequestParam(value = "page", defaultValue = "0") int page,
+                                 @RequestParam(value = "size", defaultValue = "10") int size) {
+        Page<TransportDetailsWORelationShip> productPage = service.searchInvoices(searchTerm, page, size);
+
+        int startPage = Math.max(1, page - 5); // Show 2 pages before the current page
+        int endPage = Math.min(productPage.getTotalPages(), page +10); // Show 2 pages after the current page
+
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("productPage", productPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        return "invoicelist";
+    }
+
+
 }

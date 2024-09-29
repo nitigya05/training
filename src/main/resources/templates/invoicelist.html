@@ -1,8 +1,36 @@
-<!-- src/main/resources/templates/list.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Transport Details List</title>
+    <style>
+        /* Style for pagination to display page numbers horizontally */
+        ul.pagination {
+            list-style-type: none;
+            display: flex;
+            padding: 0;
+        }
+
+        ul.pagination li {
+            margin: 0 5px;
+        }
+
+        ul.pagination li a {
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            color: #007bff;
+        }
+
+        ul.pagination li a.active {
+            background-color: #007bff;
+            color: white;
+            border: 1px solid #007bff;
+        }
+
+        ul.pagination li a:hover {
+            background-color: #ddd;
+        }
+    </style>
 </head>
 <body>
 <h1>Transport Details List</h1>
@@ -13,27 +41,57 @@
 <a th:href="@{/invoice/list}">List of Invoice</a><br/>
 <br/><br/>
 
+<form th:action="@{/invoice/search}" method="get">
+    <input type="text" name="searchTerm" placeholder="Search..." />
+    <button type="submit">Search</button>
+</form>
+
 <table border="1">
     <thead>
     <tr>
         <th>Invoice No</th>
         <th>Transport Name</th>
         <th>Net Amount</th>
+        <th>Update</th>
         <th>Action</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="details : ${transportDetails}">
+    <tr th:each="details : ${productPage}">
         <td th:text="${details.invoiceNo}"></td>
         <td th:text="${details.clientName}"></td>
         <td th:text="${details.netAmount}"></td>
         <td>
-
-            <a th:href="@{/invoice/download/{id}(id=${details.invoiceNo})}">Download</a><br/>
+            <a th:href="@{/invoice/update/{id}(id=${details.invoiceNo})}">Update</a><br/>
+        </td>
+        <td>
+            <a th:href="@{/invoice/list/{id}(id=${details.invoiceNo})}">Download</a><br/>
         </td>
     </tr>
     </tbody>
 </table>
+
+<!-- Pagination Controls with Horizontal Display -->
+<div>
+    <span>Page: [[${currentPage}]] of [[${totalPages}]]</span>
+    <ul class="pagination">
+        <!-- "Previous" Button -->
+        <li th:if="${currentPage > 1}">
+            <a th:href="@{/invoice/products(page=${currentPage - 1})}">&laquo; Prev</a>
+        </li>
+
+        <!-- Page Numbers -->
+        <li th:each="i : ${#numbers.sequence(startPage, endPage)}">
+            <a th:href="@{/invoice/products(page=${i})}" th:text="${i}"
+               th:classappend="${i == currentPage} ? 'active' : ''"></a>
+        </li>
+
+        <!-- "Next" Button -->
+        <li th:if="${currentPage < totalPages}">
+            <a th:href="@{/invoice/products(page=${currentPage + 1})}">Next &raquo;</a>
+        </li>
+    </ul>
+</div>
 
 <a href="/create">Add New Transport Details</a>
 </body>

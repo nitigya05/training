@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Invoice</title>
+</head>
+<body>
+
+<a th:href="@{/buyers/new}">Add New Buyer</a><br/>
+<a th:href="@{/buyers/list}">List of Buyer</a><br/>
+<a th:href="@{/user/invoice/upload-page}">Invoice Upload page</a><br/>
+<a th:href="@{/users/list}">List of User</a><br/>
+<a th:href="@{/invoice/list}">List of Invoice</a><br/>
+<br/>
+<br/>
+<br/>
+<h2>Update Invoice</h2>
+
+<form th:action="@{/invoices/update/{id}(id=${invoice.invoiceNo})}" th:object="${invoice}" method="post">
+    <div>
+        <label for="clientName">Client Name:</label>
+        <input type="text" id="clientName" th:field="*{clientName}" />
+    </div>
+    <div>
+        <label for="origin">Origin:</label>
+        <input type="text" id="origin" th:field="*{origin}" />
+    </div>
+    <div>
+        <label for="destination">Destination:</label>
+        <input type="text" id="destination" th:field="*{destination}" />
+    </div>
+    <div>
+        <label for="netAmount">Net Amount:</label>
+        <input type="text" id="netAmount" th:field="*{netAmount}" />
+    </div>
+    <!-- Add other fields as necessary -->
+
+    <div>
+        <button type="submit">Update</button>
+    </div>
+</form>
+
+</body>
+</html>
