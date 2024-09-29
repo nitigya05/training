@@ -1,11 +1,11 @@
 package com.example.Invoice_Generator.uploadfile.service;
 
 
+import com.example.Invoice_Generator.domain.TransportDetails;
 import com.example.Invoice_Generator.domain.dao.BankDetailsRepo;
 import com.example.Invoice_Generator.domain.dao.BuyerDetailsRepo;
 import com.example.Invoice_Generator.domain.dao.TransportDetailsRepo;
 import com.example.Invoice_Generator.domain.dao.UserDetailsRepo;
-import com.example.Invoice_Generator.domain.TransportDetails;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 @Service
-public class ExcelService {
+public class FileUploadService {
 
     @Autowired
     private TransportDetailsRepo transportDetailsRepository;
+
     @Autowired
     private UserDetailsRepo userDetailsRepo;
 
@@ -32,7 +35,9 @@ public class ExcelService {
 
     @Autowired
     private BuyerDetailsRepo buyerDetailsRepo;
-    public void saveExcelData(MultipartFile file) {
+
+    public  List<TransportDetails> saveExcelData(MultipartFile file) {
+        List<TransportDetails> transportDetails= new ArrayList<>();
         try {
             InputStream inputStream = file.getInputStream();
             Workbook workbook = new XSSFWorkbook(inputStream);
@@ -52,12 +57,14 @@ public class ExcelService {
                 System.out.println("Processing row: " + currentRow.getRowNum());
                 TransportDetails details = mapRowToTransportDetails(currentRow);
                 transportDetailsRepository.save(details);
+                transportDetails.add(details);
             }
 
             workbook.close();
         } catch (IOException e) {
             throw new RuntimeException("Failed to read Excel file", e);
         }
+        return transportDetails;
     }
 
     private boolean isRowEmpty(Row row) {

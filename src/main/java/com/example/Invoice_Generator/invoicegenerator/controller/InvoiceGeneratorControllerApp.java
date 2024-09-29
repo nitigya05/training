@@ -5,6 +5,7 @@ import com.example.Invoice_Generator.domain.TransportDetailsWORelationShip;
 import com.example.Invoice_Generator.domain.dao.TransportDetailsRepo;
 import com.example.Invoice_Generator.invoicegenerator.restcontroller.InvoiceGeneratorRestControllerApp;
 import com.example.Invoice_Generator.invoicegenerator.service.InvoiceGeneratorService;
+import com.example.Invoice_Generator.utility.UtilityClass;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,7 +28,8 @@ public class InvoiceGeneratorControllerApp {
     @Autowired
     private TransportDetailsRepo repository;
 
-
+    @Autowired
+    private SpringTemplateEngine templateEngine;
 
     @Autowired
     InvoiceGeneratorRestControllerApp invoiceGeneratorRestControllerApp;
@@ -44,7 +47,7 @@ public class InvoiceGeneratorControllerApp {
 
 
         // Generate the PDF using Thymeleaf and Flying Saucer
-        ByteArrayOutputStream pdfStream = invoiceGeneratorRestControllerApp.generateSinglePdf(transportDetails);
+        ByteArrayOutputStream pdfStream = UtilityClass.generateSinglePdf(transportDetails,templateEngine);
 
         // Set response headers for file download
         response.setContentType("application/pdf");

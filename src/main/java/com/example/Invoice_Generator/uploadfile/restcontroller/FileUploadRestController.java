@@ -1,6 +1,8 @@
 package com.example.Invoice_Generator.uploadfile.restcontroller;
 
-import com.example.Invoice_Generator.uploadfile.service.ExcelService;
+import com.example.Invoice_Generator.domain.TransportDetails;
+import com.example.Invoice_Generator.uploadfile.service.FileUploadService;
+import com.example.Invoice_Generator.utility.UtilityClass;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -13,15 +15,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import java.io.File;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/upload")
 public class FileUploadRestController {
 
     @Autowired
-    private ExcelService excelService;
+    private FileUploadService excelService;
+
+    @Autowired
+    private SpringTemplateEngine templateEngine;
+
+    @Autowired
+    private JobLauncher jobLauncher;
+
+    @Autowired
+    private Job job;
 
 
     @PostMapping("/upload")
@@ -32,7 +45,8 @@ public class FileUploadRestController {
         }
 
         try {
-            excelService.saveExcelData(file);
+            List<TransportDetails>  transportDetails=excelService.saveExcelData(file);
+            UtilityClass.saveZipFileLocally(transportDetails,templateEngine);
             System.out.println(System.currentTimeMillis()-startTime + " ms");
             return ResponseEntity.ok("File uploaded and data saved successfully.");
         } catch (Exception e) {
@@ -43,11 +57,7 @@ public class FileUploadRestController {
 
 
 
-    @Autowired
-    private JobLauncher jobLauncher;
 
-    @Autowired
-    private Job job;
 
     @PostMapping("/file")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {

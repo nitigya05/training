@@ -15,7 +15,7 @@
 <a th:href="@{/invoice/list}">List of Invoice</a><br/>
 <br/><br/>
 
-<form method="POST" th:action="@{/api/upload/upload}" enctype="multipart/form-data">
+<form method="POST" th:action="@{/user/invoice/upload}" enctype="multipart/form-data">
     <input type="file" name="file" accept=".xlsx,.xls">
     <button type="submit">Upload</button>
 </form>

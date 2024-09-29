@@ -1,7 +1,7 @@
 package com.example.Invoice_Generator.uploadfile;
 
 import com.example.Invoice_Generator.domain.TransportDetails;
-import com.example.Invoice_Generator.uploadfile.service.ExcelService;
+import com.example.Invoice_Generator.uploadfile.service.FileUploadService;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -26,10 +26,10 @@ public class TransportDetailsItemReader implements ItemStreamReader<TransportDet
     private String filePath;  // Add this to accept the file path
 
     @Autowired
-    private ExcelService excelService;
+    private FileUploadService excelService;
 
     @Override
-    public TransportDetails read() {
+    public TransportDetails read() throws IOException {
         if (isNotInitialized()) {
             transportDetailsList = readExcelFile(filePath);
         }
@@ -51,7 +51,7 @@ public class TransportDetailsItemReader implements ItemStreamReader<TransportDet
         return this.transportDetailsList == null;
     }
 
-    private List<TransportDetails> readExcelFile(String filePath) {  // Use the dynamic file path
+    private List<TransportDetails> readExcelFile(String filePath) throws IOException {  // Use the dynamic file path
         List<TransportDetails> detailsList = new ArrayList<>();
 
         try (FileInputStream file = new FileInputStream(new File(filePath))) {  // Use filePath here
@@ -63,14 +63,12 @@ public class TransportDetailsItemReader implements ItemStreamReader<TransportDet
                     continue; // skip header row
                 }
                 TransportDetails details = excelService.mapRowToTransportDetails(row);
-
-                // Add more columns as needed
-
                 detailsList.add(details);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+            throw  e;
         }
 
         return detailsList;
