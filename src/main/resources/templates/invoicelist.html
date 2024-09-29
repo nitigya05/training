@@ -50,7 +50,12 @@
     <thead>
     <tr>
         <th>Invoice No</th>
-        <th>Transport Name</th>
+        <th>Client Name</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>No of Days</th>
+        <th>Vehicle No</th>
+        <th>Driver Name</th>
         <th>Net Amount</th>
         <th>Update</th>
         <th>Action</th>
@@ -60,6 +65,11 @@
     <tr th:each="details : ${productPage}">
         <td th:text="${details.invoiceNo}"></td>
         <td th:text="${details.clientName}"></td>
+        <td th:text="${details.origin}"></td>
+        <td th:text="${details.destination}"></td>
+        <td th:text="${details.noOfDays}"></td>
+        <td th:text="${details.vehicleNo}"></td>
+        <td th:text="${details.driverName}"></td>
         <td th:text="${details.netAmount}"></td>
         <td>
             <a th:href="@{/invoice/update/{id}(id=${details.invoiceNo})}">Update</a><br/>
