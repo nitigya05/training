@@ -4,7 +4,6 @@ package com.example.Invoice_Generator.uploadfile.config;
 import com.example.Invoice_Generator.domain.TransportDetails;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
@@ -16,7 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@EnableBatchProcessing
 public class BatchConfig {
 
     @Bean
@@ -28,6 +26,17 @@ public class BatchConfig {
                 .build();
     }
 
+    @Bean
+    public Step step1(JobRepository jobRepository, PlatformTransactionManager transactionManager,
+                      TransportDetailsItemReader reader, TransportDetailsItemProcessor processor,
+                      TransportDetailsItemWriter writer) {
+        return new StepBuilder("step1", jobRepository)
+                .<TransportDetails, TransportDetails>chunk(20000, transactionManager)
+                .reader(reader)
+                .processor(processor)
+                .writer(writer)
+                .build();
+    }
 
     @Bean
     @StepScope
@@ -35,17 +44,6 @@ public class BatchConfig {
         TransportDetailsItemReader reader = new TransportDetailsItemReader();
         reader.setFilePath(filePath);  // Set the file path dynamically
         return reader;
-    }
-
-    @Bean
-    public Step step1(JobRepository jobRepository, PlatformTransactionManager transactionManager,
-                      TransportDetailsItemReader reader, TransportDetailsItemProcessor processor, TransportDetailsItemWriter writer) {
-        return new StepBuilder("step1", jobRepository)
-                .<TransportDetails, TransportDetails>chunk(20000, transactionManager)
-                .reader(reader)
-                .processor(processor)
-                .writer(writer)
-                .build();
     }
 
 }

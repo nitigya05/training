@@ -5,11 +5,7 @@
 </head>
 <body>
 <h1>User and Bank Details</h1>
-<a th:href="@{/buyers/new}">Add New Buyer</a><br/>
-<a th:href="@{/buyers/list}">List of Buyer</a><br/>
-<a th:href="@{/user/invoice/upload-page}">Invoice Upload page</a><br/>
-<a th:href="@{/users/list}">List of User</a><br/>
-<a th:href="@{/invoice/list}">List of Invoice</a><br/>
+<div th:insert="commonLinks :: navigationLinks"></div>
 <br/><br/>
 <form th:action="@{/users/saveOrUpdate}" th:object="${user}" method="post">
     <div th:if="${#fields.hasErrors()}">

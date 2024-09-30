@@ -5,14 +5,8 @@
 </head>
 <body>
 
-<a th:href="@{/buyers/new}">Add New Buyer</a><br/>
-<a th:href="@{/buyers/list}">List of Buyer</a><br/>
-<a th:href="@{/user/invoice/upload-page}">Invoice Upload page</a><br/>
-<a th:href="@{/users/list}">List of User</a><br/>
-<a th:href="@{/invoice/list}">List of Invoice</a><br/>
-<br/>
-<br/>
-<br/>
+<div th:insert="commonLinks :: navigationLinks"></div>
+
 <h2>Update Invoice</h2>
 
 <form th:action="@{/invoices/update/{id}(id=${invoice.invoiceNo})}" th:object="${invoice}" method="post">

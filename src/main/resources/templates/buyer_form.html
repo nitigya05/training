@@ -3,6 +3,7 @@
 <head>
     <title>Create or Edit Buyer</title>
 </head>
+<div th:insert="commonLinks :: navigationLinks"></div>
 <body>
 <h1 th:text="${buyerDetails.buyerId != null} ? 'Edit Buyer' : 'Create Buyer'">Buyer Form</h1>
 <form th:action="@{/buyers}" th:object="${buyerDetails}" method="post">
@@ -28,11 +29,7 @@
 <a th:href="@{/buyers/list}">Cancel</a>
 <br/><br/>
 
-<a th:href="@{/buyers/new}">Add New Buyer</a><br/>
-<a th:href="@{/buyers/list}">List of Buyer</a><br/>
-<a th:href="@{/user/invoice/upload-page}">Invoice Upload page</a><br/>
-<a th:href="@{/users/list}">List of User</a><br/>
-<a th:href="@{/invoice/list}">List of Invoice</a><br/>
+
 <br/><br/>
 </body>
 </html>
