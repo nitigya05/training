@@ -64,6 +64,7 @@ public class FileUploadRestController {
             jobLauncher.run(job, jobParameters);
             long endTime = System.currentTimeMillis();
             System.out.println("Processing time: " + (endTime - startTime) + " ms");
+            convFile.delete();
             return ResponseEntity.ok("File uploaded and batch process started.");
         } catch (Exception e) {
             e.printStackTrace();
