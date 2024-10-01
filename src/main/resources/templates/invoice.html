@@ -144,33 +144,25 @@
         <td colspan="3">&nbsp;</td>
         <td>&nbsp;</td>
         <td colspan="2">
-            <strong><span th:text="${transportDetails.baseFare}"></span></strong><br/><br/><br/><br/>
+            <br/><br/><strong><span th:text="${transportDetails.baseFare}"></span></strong><br/><br/><br/><br/>
             <strong><span th:text="${transportDetails.extraKmRate}"></span></strong><br/>
             <strong><span th:text="${transportDetails.extraHrRate}"></span></strong><br/>
+            <strong><span th:text="${transportDetails.tollAndParking}"></span></strong>
         </td>
     </tr>
 
     <!-- Total -->
     <tr>
-        <td>&nbsp;</td>
-        <td colspan="4" class="bold-text">
+        <td class="bold-text">
             Total
+        </td>
+        <td colspan="4">
+            &nbsp;
         </td>
         <td colspan="3">&nbsp;</td>
         <td>&nbsp;</td>
         <td colspan="2" class="bold-text">
             <span th:text="${transportDetails.netAmount}"></span> /-
-        </td>
-    </tr>
-
-    <!-- Footer -->
-    <tr>
-        <td colspan="7">
-            <p>Amount Chargeable (in words):</p>
-            <p class="bold-text"><span th:text="${transportDetails.netAmountInWords}"></span></p>
-        </td>
-        <td colspan="5">
-            <em>E.&amp; O.E</em>
         </td>
     </tr>
 
@@ -201,18 +193,30 @@
 
     <tr>
         <td colspan="3" class="bold-text">
-            Total: <span th:text="${transportDetails.netAmount}"></span>
+            Grand Total:
         </td>
         <td>&nbsp;</td>
-        <td colspan="2" class="bold-text"><span th:text="${transportDetails.cgst}"></span></td>
+        <td colspan="2" class="bold-text"></td>
         <td>&nbsp;</td>
-        <td colspan="2" class="bold-text"><span th:text="${transportDetails.sgst}"></span></td>
-        <td colspan="2" class="bold-text"><span th:text="${transportDetails.taxAmount}"></span></td>
+        <td colspan="2" class="bold-text"></td>
+        <td colspan="2" class="bold-text"><span th:text="${transportDetails.grandNetAmount}"></span></td>
+    </tr>
+
+
+    <!-- Footer -->
+    <tr>
+        <td colspan="7">
+            <p>Amount Chargeable (in words):</p>
+            <p class="bold-text"><span th:text="${transportDetails.grandNetAmountInwords}"></span></p>
+        </td>
+        <td colspan="5">
+            <em>E.&amp; O.E</em>
+        </td>
     </tr>
 
     <tr>
         <td colspan="12">
-            <p class="bold-text">Tax Amount (in words): <span th:text="${transportDetails.taxAmountInWords}"></span></p>
+            <p class="bold-text">Grand Amount (in words): <span th:text="${transportDetails.grandNetAmountInwords}"></span></p>
             <p class="bold-text">Company's Bank Details</p>
             <p>Bank Name: <strong><span th:text="${transportDetails.userDetails.bankDetails.bankName}"></span></strong></p>
             <p>A/c No: <strong><span th:text="${transportDetails.userDetails.bankDetails.accountNo}"></span></strong></p>

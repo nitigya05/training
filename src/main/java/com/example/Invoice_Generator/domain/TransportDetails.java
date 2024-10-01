@@ -126,10 +126,13 @@ public class TransportDetails {
     private BigDecimal taxAmount;
 
     @Transient
-    private String taxAmountInWords;
+    private String netAmountInWords;
 
     @Transient
-    private String netAmountInWords;
+    private BigDecimal grandNetAmount;
+
+    @Transient
+    private String grandNetAmountInwords;
 
     // Getters and setters
     public void setNetAmountInWords() {
@@ -145,8 +148,12 @@ public class TransportDetails {
 
     }
 
-    public void setTaxAmountInWords() {
-        if(this.taxAmountInWords==null)
-            this.taxAmountInWords = NumberToWordsConverter.convertToWords(this.taxAmount);
+    public void setGrandNetAmount() {
+        this.grandNetAmount=this.taxAmount.add(this.netAmount);
+    }
+
+    public void setGrandNetAmountInwords() {
+        if(this.grandNetAmountInwords ==null)
+            this.grandNetAmountInwords = NumberToWordsConverter.convertToWords(this.grandNetAmount);
     }
 }
