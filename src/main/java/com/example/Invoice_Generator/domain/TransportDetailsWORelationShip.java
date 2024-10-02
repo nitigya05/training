@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "transport_detailss")
+@Table(name = "transport_details")
 public class TransportDetailsWORelationShip {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transport_detailss_seq")
-    @SequenceGenerator(name = "transport_detailss_seq", sequenceName = "transport_detailss_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transprt_details_seq")
+    @SequenceGenerator(name = "transprt_details_seq", sequenceName = "transprt_details_seq", allocationSize = 1)
     private Long invoiceNo;
 
     @Column(nullable = false)

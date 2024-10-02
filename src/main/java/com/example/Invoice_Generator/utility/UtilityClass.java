@@ -21,7 +21,6 @@ public class UtilityClass {
 
     public static String saveZipFileLocally(List<TransportDetails> transportDetails, SpringTemplateEngine templateEngine) throws IOException, DocumentException {
        System.out.println("inside saveZipFileLocally "+transportDetails.size());
-        transportDetails.forEach(a->{a.setNetAmountInWords();a.setTaxAmount();a.setGrandNetAmount();a.setGrandNetAmountInwords();});
         // Define a custom date-time format without colons
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
 
@@ -57,10 +56,7 @@ public class UtilityClass {
     }
     public static ByteArrayOutputStream generateSinglePdf(TransportDetails transportDetails,SpringTemplateEngine templateEngine) throws IOException, DocumentException {
         // Create a Thymeleaf context and set variables
-        transportDetails.setNetAmountInWords();
-        transportDetails.setTaxAmount();
-        transportDetails.setGrandNetAmount();
-        transportDetails.setGrandNetAmountInwords();
+
         Context context = new Context();
         context.setVariable("transportDetails", transportDetails);
 

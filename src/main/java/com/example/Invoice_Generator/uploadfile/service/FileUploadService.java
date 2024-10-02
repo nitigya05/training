@@ -32,7 +32,6 @@ public class FileUploadService {
     @Autowired
     private BankDetailsRepo bankDetailsRepo;
 
-
     @Autowired
     private BuyerDetailsRepo buyerDetailsRepo;
 
@@ -102,38 +101,41 @@ public class FileUploadService {
 
     public TransportDetails mapRowToTransportDetails(Row row) {
   System.out.println("inside mapRowToTransportDetails" +row.getCell(2).getLocalDateTimeCellValue().toLocalDate());
-        TransportDetails details = new TransportDetails();
+        TransportDetails transportDetails = new TransportDetails();
 //        details.setSrNo(row.getCell(0).getStringCellValue());
 //        details.setInvoiceNo(row.getCell(1).getStringCellValue());
-        details.setDate(row.getCell(2).getLocalDateTimeCellValue().toLocalDate());
-        details.setBuyer_id((int) row.getCell(3).getNumericCellValue());
-        details.setClientName(row.getCell(4).getStringCellValue());
-        details.setOrigin(row.getCell(5).getStringCellValue());
-        details.setDestination(row.getCell(6).getStringCellValue());
-        details.setNoOfDays((int) row.getCell(7).getNumericCellValue());
-        details.setVehicleNo(row.getCell(8).getStringCellValue());
-        details.setVehicleType(row.getCell(9).getStringCellValue());
-        details.setDriverName(row.getCell(10).getStringCellValue());
-        details.setCreatedAt(LocalDateTime.now());
-        details.setTotalHrs(new BigDecimal(row.getCell(11).getNumericCellValue()));
-        details.setActualHrs(new BigDecimal(row.getCell(12).getNumericCellValue()));
-        details.setExtraHrs(new BigDecimal(row.getCell(13).getNumericCellValue()));
-        details.setBasicKm(new BigDecimal(row.getCell(14).getNumericCellValue()));
-        details.setBaseFare(new BigDecimal(row.getCell(15).getNumericCellValue()));
-        details.setActualKm(new BigDecimal(row.getCell(16).getNumericCellValue()));
-        details.setExtraKm(new BigDecimal(row.getCell(17).getNumericCellValue()));
-        details.setPerKmRate(new BigDecimal(row.getCell(18).getNumericCellValue()));
-        details.setPerHrRate(new BigDecimal(row.getCell(19).getNumericCellValue()));
-        details.setExtraHrRate(new BigDecimal(row.getCell(20).getNumericCellValue()));
-        details.setExtraKmRate(new BigDecimal(row.getCell(21).getNumericCellValue()));
-        details.setTollAndParking(new BigDecimal(row.getCell(22).getNumericCellValue()));
-        details.setNetAmount(new BigDecimal(row.getCell(23).getNumericCellValue()));
-        details.setAdvance(new BigDecimal(row.getCell(24).getNumericCellValue()));
-        details.setBalance(new BigDecimal(row.getCell(25).getNumericCellValue()));
-        details.setCreatedBy("1");
-        details.setUserDetails(userDetailsRepo.getById(1));
-        details.setBuyerDetails(buyerDetailsRepo.getById(details.getBuyer_id()));
-        details.setCreatedBy("1");
-        return details;
+        transportDetails.setDate(row.getCell(2).getLocalDateTimeCellValue().toLocalDate());
+        transportDetails.setBuyer_id((int) row.getCell(3).getNumericCellValue());
+        transportDetails.setClientName(row.getCell(4).getStringCellValue());
+        transportDetails.setOrigin(row.getCell(5).getStringCellValue());
+        transportDetails.setDestination(row.getCell(6).getStringCellValue());
+        transportDetails.setNoOfDays((int) row.getCell(7).getNumericCellValue());
+        transportDetails.setVehicleNo(row.getCell(8).getStringCellValue());
+        transportDetails.setVehicleType(row.getCell(9).getStringCellValue());
+        transportDetails.setDriverName(row.getCell(10).getStringCellValue());
+        transportDetails.setCreatedAt(LocalDateTime.now());
+        transportDetails.setTotalHrs(new BigDecimal(row.getCell(11).getNumericCellValue()));
+        transportDetails.setActualHrs(new BigDecimal(row.getCell(12).getNumericCellValue()));
+        transportDetails.setExtraHrs(new BigDecimal(row.getCell(13).getNumericCellValue()));
+        transportDetails.setBasicKm(new BigDecimal(row.getCell(14).getNumericCellValue()));
+        transportDetails.setBaseFare(new BigDecimal(row.getCell(15).getNumericCellValue()));
+        transportDetails.setActualKm(new BigDecimal(row.getCell(16).getNumericCellValue()));
+        transportDetails.setExtraKm(new BigDecimal(row.getCell(17).getNumericCellValue()));
+        transportDetails.setPerKmRate(new BigDecimal(row.getCell(18).getNumericCellValue()));
+        transportDetails.setPerHrRate(new BigDecimal(row.getCell(19).getNumericCellValue()));
+        transportDetails.setExtraHrRate(new BigDecimal(row.getCell(20).getNumericCellValue()));
+        transportDetails.setExtraKmRate(new BigDecimal(row.getCell(21).getNumericCellValue()));
+        transportDetails.setTollAndParking(new BigDecimal(row.getCell(22).getNumericCellValue()));
+        transportDetails.setNetAmount(new BigDecimal(row.getCell(23).getNumericCellValue()));
+        transportDetails.setAdvance(new BigDecimal(row.getCell(24).getNumericCellValue()));
+        transportDetails.setBalance(new BigDecimal(row.getCell(25).getNumericCellValue()));
+        transportDetails.setCreatedBy("1");
+        transportDetails.setUserDetails(userDetailsRepo.getById(1));
+        transportDetails.setBuyerDetails(buyerDetailsRepo.getById(transportDetails.getBuyer_id()));
+        transportDetails.setCreatedBy("1");
+        transportDetails.setTaxAmount();
+        transportDetails.setGrandNetAmount();
+        transportDetails.setGrandNetAmountInwords();
+        return transportDetails;
     }
 }

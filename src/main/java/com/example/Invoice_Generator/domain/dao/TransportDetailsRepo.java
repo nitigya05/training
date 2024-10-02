@@ -12,6 +12,5 @@ import java.util.Optional;
 public interface TransportDetailsRepo extends JpaRepository<TransportDetails, Integer> {
 
     // Custom query to find transport details by user ID
-
     List<TransportDetails> findByUserDetails(Optional<UserDetails> byId);
 }
