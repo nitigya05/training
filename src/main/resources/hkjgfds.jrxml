@@ -3,7 +3,7 @@
 	<parameter name="userDetails" class="com.example.Invoice_Generator.domain.UserDetails"/>
 	<parameter name="bankDetails" class="com.example.Invoice_Generator.domain.BankDetails"/>
 	<parameter name="buyerDetails" class="com.example.Invoice_Generator.domain.BuyerDetails"/>
-	<parameter name="transportDetails" class="com.example.Invoice_Generator.domain.TransportDetails"/>
+	<parameter name="invoiceDetails" class="com.example.Invoice_Generator.domain.InvoiceDetails"/>
 	<title height="100">
 		<element kind="staticText" uuid="785e59f2-acac-49c0-a359-4505124aeee1" x="0" y="0" width="500" height="20">
 			<text><![CDATA[INVOICE]]></text>
@@ -39,19 +39,19 @@
 				<text><![CDATA[Service Details]]></text>
 			</element>
 			<element kind="textField" uuid="42473d92-d2e3-47c4-bbfc-f39a98ca4941" x="0" y="115" width="500" height="20">
-				<expression><![CDATA["Invoice No: " + $P{transportDetails}.invoiceNo]]></expression>
+				<expression><![CDATA["Invoice No: " + $P{invoiceDetails}.invoiceNo]]></expression>
 			</element>
 			<element kind="textField" uuid="0e227b58-66c8-4753-b771-efa9413f942f" x="0" y="135" width="500" height="20">
-				<expression><![CDATA["Date of Service: " + $P{transportDetails}.date]]></expression>
+				<expression><![CDATA["Date of Service: " + $P{invoiceDetails}.date]]></expression>
 			</element>
 			<element kind="textField" uuid="00e74724-693e-4c44-a29a-0c0ad9362238" x="0" y="155" width="500" height="20">
-				<expression><![CDATA["Vehicle No: " + $P{transportDetails}.vehicleNo]]></expression>
+				<expression><![CDATA["Vehicle No: " + $P{invoiceDetails}.vehicleNo]]></expression>
 			</element>
 			<element kind="textField" uuid="0939ee66-582c-4416-b497-e36188200207" x="0" y="175" width="500" height="20">
-				<expression><![CDATA["Total KM: " + $P{transportDetails}.actualKm + " | Extra KM: " + $P{transportDetails}.extraKm]]></expression>
+				<expression><![CDATA["Total KM: " + $P{invoiceDetails}.actualKm + " | Extra KM: " + $P{invoiceDetails}.extraKm]]></expression>
 			</element>
 			<element kind="textField" uuid="63e3b977-4353-40c6-b2cc-f472737b8776" x="0" y="195" width="500" height="15">
-				<expression><![CDATA["Net Amount: " + $P{transportDetails}.netAmount]]></expression>
+				<expression><![CDATA["Net Amount: " + $P{invoiceDetails}.netAmount]]></expression>
 			</element>
 		</band>
 	</detail>

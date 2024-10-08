@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Invoice #<span th:text="${transportDetails.invoiceNo}"></span></title>
+    <title>Invoice #<span th:text="${invoiceDetails.invoiceNo}"></span></title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -74,24 +74,24 @@
     <tbody>
     <tr>
         <td colspan="7" rowspan="4">
-            <p class="bold-text"><span th:text="${transportDetails.userDetails.name}"></span></p>
-            <p><span th:text="${transportDetails.userDetails.address}"></span></p>
-            <p class="bold-text">GST No - <span th:text="${transportDetails.userDetails.gstNo}"></span></p>
-            <p>E-Mail: <span th:text="${transportDetails.userDetails.email}"></span></p>
+            <p class="bold-text"><span th:text="${invoiceDetails.userDetails.name}"></span></p>
+            <p><span th:text="${invoiceDetails.userDetails.address}"></span></p>
+            <p class="bold-text">GST No - <span th:text="${invoiceDetails.userDetails.gstNo}"></span></p>
+            <p>E-Mail: <span th:text="${invoiceDetails.userDetails.email}"></span></p>
         </td>
         <td colspan="3">
             <p class="bold-text">Invoice No.</p>
-            <p class="bold-text"><span th:text="${transportDetails.invoiceNo}"></span></p> <!-- Invoice Number -->
+            <p class="bold-text"><span th:text="${invoiceDetails.invoiceNo}"></span></p> <!-- Invoice Number -->
         </td>
         <td colspan="2">
             <p class="bold-text">Dated</p>
-            <p class="bold-text"><span th:text="${transportDetails.date}"></span></p>
+            <p class="bold-text"><span th:text="${invoiceDetails.invoiceDate}"></span></p>
         </td>
     </tr>
     <tr>
         <td colspan="3">
             <p class="bold-text">Supplier's Ref.</p>
-            <p class="bold-text"><span th:text="${transportDetails.invoiceNo}"></span></p> <!-- Reference Number -->
+            <p class="bold-text"><span th:text="${invoiceDetails.invoiceNo}"></span></p> <!-- Reference Number -->
         </td>
         <td colspan="2">
             <p class="bold-text">Other Reference(s)</p>
@@ -113,8 +113,8 @@
     <tr>
         <td colspan="7">
             <p class="bold-text">Buyer,</p>
-            <p><span th:text="${transportDetails.buyerDetails.name}"></span></p>
-            <p><span th:text="${transportDetails.buyerDetails.address}"></span></p>
+            <p><span th:text="${invoiceDetails.billingTo}"></span></p>
+            <p><span th:text="${invoiceDetails.clientAddress}"></span></p>
             <br/>
             <br/>
             <br/>
@@ -122,7 +122,7 @@
     </tr>
     <tr>
         <td colspan="7">
-            <p class="bold-text">Buyer's GST No – <span th:text="${transportDetails.buyerDetails.gstNo}"></span></p>
+            <p class="bold-text">Buyer's GST No – <span th:text="${invoiceDetails.gstNo}"></span></p>
         </td>
     </tr>
 
@@ -138,10 +138,10 @@
         <td>1</td>
         <td colspan="4">
             <strong>VEHICLE HIRE CHARGES</strong><br/>
-            Client Name – <span th:text="${transportDetails.clientName}"></span><br/>
-            Vehicle No – <span th:text="${transportDetails.vehicleNo}"></span><br/>
-            Vehicle Type – <span th:text="${transportDetails.vehicleType}"></span><br/>
-            Driver Name – <span th:text="${transportDetails.driverName}"></span>
+            Client Name – <span th:text="${invoiceDetails.clientName}"></span><br/>
+            Vehicle No – <span th:text="${invoiceDetails.vehicleNo}"></span><br/>
+            Vehicle Type – <span th:text="${invoiceDetails.vehicleType}"></span><br/>
+            Driver Name – <span th:text="${invoiceDetails.driverName}"></span>
         </td>
         <td colspan="3">&nbsp;</td>
         <td>&nbsp;</td>
@@ -150,23 +150,28 @@
     <tr>
         <td>&nbsp;</td>
         <td colspan="4">
-            Date of Service – <span th:text="${transportDetails.date}"></span><br/>
-            Origin – <span th:text="${transportDetails.origin}"></span><br/>
-            Destination – <span th:text="${transportDetails.destination}"></span><br/>
-            No of Days – <span th:text="${transportDetails.noOfDays}"></span><br/>
-            Total Km – <span th:text="${transportDetails.actualKm}"></span> Km<br/>
-            Total Hrs– <span th:text="${transportDetails.actualHrs}"></span> hrs<br/>
-            Extra Km – <span th:text="${transportDetails.perKmRate}"></span> rs *<span th:text="${transportDetails.extraKm}"></span> Km<br/>
-            Extra Hrs – <span th:text="${transportDetails.perHrRate}"></span> rs *<span th:text="${transportDetails.extraHrs}"></span> hrs<br/>
-            Toll and Parking = <span th:text="${transportDetails.tollAndParking}"></span>
+            Date of Service – <span th:text="${invoiceDetails.dateOfService}"></span><br/>
+            Origin – <span th:text="${invoiceDetails.origin}"></span><br/>
+            Destination – <span th:text="${invoiceDetails.destination}"></span><br/>
+            No of Days – <span th:text="${invoiceDetails.noOfDays}"></span><br/>
+            Total Km – <span th:text="${invoiceDetails.actualKm}"></span> Km<br/>
+            Total Hrs – <span th:text="${invoiceDetails.actualHrs}"></span> hrs<br/>
+            Extra Km – <span th:text="${invoiceDetails.extraPerKmRate}"></span> rs *<span th:text="${invoiceDetails.extraKm}"></span> Km<br/>
+            Extra Hrs – <span th:text="${invoiceDetails.extraPerHrRate}"></span> rs *<span th:text="${invoiceDetails.extraHrs}"></span> hrs<br/>
+            Toll = <span th:text="${invoiceDetails.tollAndParking}"></span><br/>
+            Parking = <span th:text="${invoiceDetails.parking}"></span><br/>
+            Food Allowance = <span th:text="${invoiceDetails.foodAllowance}"></span>
         </td>
         <td colspan="3">&nbsp;</td>
         <td>&nbsp;</td>
         <td colspan="2">
-            <br/><br/><strong><span th:text="${transportDetails.baseFare}"></span></strong><br/><br/><br/><br/>
-            <strong><span th:text="${transportDetails.extraKmRate}"></span></strong><br/>
-            <strong><span th:text="${transportDetails.extraHrRate}"></span></strong><br/>
-            <strong><span th:text="${transportDetails.tollAndParking}"></span></strong>
+            <br/><br/><strong><span th:text="${invoiceDetails.baseFare}"></span></strong><br/><br/><br/><br/>
+            <strong><span th:text="${invoiceDetails.extraKmRate}"></span></strong><br/>
+            <strong><span th:text="${invoiceDetails.extraHrRate}"></span></strong><br/>
+            <strong><span th:text="${invoiceDetails.tollAndParking}"></span></strong><br/>
+            <strong><span th:text="${invoiceDetails.parking}"></span></strong><br/>
+            <strong><span th:text="${invoiceDetails.foodAllowance}"></span></strong>
+
         </td>
     </tr>
 
@@ -177,14 +182,14 @@
         <td colspan="3">&nbsp;</td>
         <td>&nbsp;</td>
         <td colspan="2" class="bold-text">
-            <span th:text="${transportDetails.netAmount}"></span> /-
+            <span th:text="${invoiceDetails.netAmount}"></span> /-
         </td>
     </tr>
 
     <tr>
         <td colspan="3" rowspan="2" class="bold-text">Taxable Value</td>
-        <td colspan="3" class="bold-text">CGST - <span th:text="${transportDetails.rate}"></span>%</td>
-        <td colspan="4" class="bold-text">SGST – <span th:text="${transportDetails.rate}"></span>%</td>
+        <td colspan="3" class="bold-text">CGST - <span th:text="${invoiceDetails.cgstPercent}"></span>%</td>
+        <td colspan="4" class="bold-text">SGST – <span th:text="${invoiceDetails.sgstPercent}"></span>%</td>
         <td rowspan="2" class="bold-text">Total Tax Amount</td>
     </tr>
     <tr>
@@ -194,12 +199,12 @@
         <td colspan="2">Amount</td>
     </tr>
     <tr>
-        <td colspan="3"><p><span th:text="${transportDetails.netAmount}"></span></p></td>
-        <td>0</td>
-        <td colspan="2"><span th:text="${transportDetails.cgst}"></span></td>
-        <td>0</td>
-        <td colspan="2"><span th:text="${transportDetails.sgst}"></span></td>
-        <td colspan="2"><span th:text="${transportDetails.taxAmount}"></span></td>
+        <td colspan="3"><p><span th:text="${invoiceDetails.netAmount}"></span></p></td>
+        <td><span th:text="${invoiceDetails.cgstPercent}"></span></td>
+        <td colspan="2"><span th:text="${invoiceDetails.cgst}"></span></td>
+        <td><span th:text="${invoiceDetails.sgstPercent}"></span></td>
+        <td colspan="2"><span th:text="${invoiceDetails.sgst}"></span></td>
+        <td colspan="2"><span th:text="${invoiceDetails.gstAmount}"></span></td>
     </tr>
 
     <tr>
@@ -208,28 +213,30 @@
         <td colspan="2" class="bold-text"></td>
         <td>&nbsp;</td>
         <td colspan="2" class="bold-text"></td>
-        <td colspan="2" class="bold-text"><span th:text="${transportDetails.grandNetAmount}"></span></td>
+        <td colspan="2" class="bold-text"><span th:text="${invoiceDetails.totalAmountIncludingGst}"></span></td>
     </tr>
 
     <!-- Footer -->
     <tr>
         <td colspan="7">
             <p>Amount Chargeable (in words):</p>
-            <p class="bold-text"><span th:text="${transportDetails.grandNetAmountInwords}"></span></p>
+            <p class="bold-text"><span th:text="${invoiceDetails.grandNetAmountInwords}"></span></p>
         </td>
         <td colspan="5"><em>E.&amp; O.E</em></td>
     </tr>
 
-
     <tr>
         <td colspan="12">
-            <p class="bold-text">Grand Amount (in words): <span th:text="${transportDetails.grandNetAmountInwords}"></span></p>
+            <p class="bold-text">Grand Amount (in words): <span th:text="${invoiceDetails.grandNetAmountInwords}"></span></p>
             <p class="bold-text">Company's Bank Details</p>
-            <p>Bank Name: <strong><span th:text="${transportDetails.userDetails.bankDetails.bankName}"></span></strong></p><img th:src="@{classpath:/static/images/image.png}" alt="Signature" class="signature-img" align="right"/>
-            <p>A/c No: <strong><span th:text="${transportDetails.userDetails.bankDetails.accountNo}"></span></strong></p>
-            <p>Company's PAN: <strong><span th:text="${transportDetails.userDetails.pan}"></span></strong></p>
-            <p>Branch &amp; IFS Code: <strong><span th:text="${transportDetails.userDetails.bankDetails.branch}"></span></strong> | <strong><span th:text="${transportDetails.userDetails.bankDetails.ifscCode}"></span></strong></p><br/><br/><br/>
-           </td>
+            <p>Bank Name: <strong><span th:text="${invoiceDetails.userDetails.bankDetails.bankName}"></span></strong></p>
+            <p>A/c No: <strong><span th:text="${invoiceDetails.userDetails.bankDetails.accountNo}"></span></strong></p>
+            <p>Company's PAN: <strong><span th:text="${invoiceDetails.userDetails.pan}"></span></strong></p>
+            <p>Branch &amp; IFS Code: <strong><span th:text="${invoiceDetails.userDetails.bankDetails.branch}"></span></strong> | <strong><span th:text="${invoiceDetails.userDetails.bankDetails.ifscCode}"></span></strong></p>
+            <div class="signature-cell">
+                <img th:src="@{classpath:/static/images/image.png}" alt="Signature" class="signature-img" />
+            </div>
+        </td>
     </tr>
     </tbody>
 </table>

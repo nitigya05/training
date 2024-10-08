@@ -1,0 +1,1 @@
+update invoice_detailss set net_amount= '8872.00',grand_net_amount_inwords='INR Eight thousand  eight hundred seventy two Rupees Only.', base_fare= '7200.00',total_amount_including_gst='8872.00' where invoice_no=171

@@ -1,7 +1,7 @@
 package com.example.Invoice_Generator.uploadfile.config;
 
 
-import com.example.Invoice_Generator.domain.TransportDetails;
+import com.example.Invoice_Generator.domain.InvoiceDetails;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -33,7 +33,7 @@ public class BatchConfig {
                       TransportDetailsItemReader reader, TransportDetailsItemProcessor processor,
                       TransportDetailsItemWriter writer) {
         return new StepBuilder("step1", jobRepository)
-                .<TransportDetails, TransportDetails>chunk(20000, transactionManager)
+                .<InvoiceDetails, InvoiceDetails>chunk(20000, transactionManager)
                 .reader(reader)
                 .processor(processor)
                 .writer(writer)

@@ -1,6 +1,6 @@
 package com.example.Invoice_Generator.utility;
 
-import com.example.Invoice_Generator.domain.TransportDetails;
+import com.example.Invoice_Generator.domain.InvoiceDetails;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.thymeleaf.context.Context;
@@ -19,8 +19,8 @@ import java.util.zip.ZipOutputStream;
 
 public class UtilityClass {
 
-    public static String saveZipFileLocally(List<TransportDetails> transportDetails, SpringTemplateEngine templateEngine) throws IOException, DocumentException {
-       System.out.println("inside saveZipFileLocally "+transportDetails.size());
+    public static String saveZipFileLocally(List<InvoiceDetails> invoiceDetails, SpringTemplateEngine templateEngine) throws IOException, DocumentException {
+       System.out.println("inside saveZipFileLocally "+ invoiceDetails.size());
         // Define a custom date-time format without colons
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
 
@@ -40,12 +40,12 @@ public class UtilityClass {
              ZipOutputStream zipOut = new ZipOutputStream(fileOut)) {
 
             // Iterate through the list of TransportDetails and generate PDFs
-            for (int i = 0; i < transportDetails.size(); i++) {
+            for (int i = 0; i < invoiceDetails.size(); i++) {
                 // Generate a single PDF for each transport detail
-                ByteArrayOutputStream pdf = generateSinglePdf(transportDetails.get(i),templateEngine);
+                ByteArrayOutputStream pdf = generateSinglePdf(invoiceDetails.get(i),templateEngine);
 
                 // Add the PDF to the zip file with a unique name
-                String pdfFileName = "invoice" + transportDetails.get(i).getInvoiceNo() + ".pdf";
+                String pdfFileName = "invoice" + invoiceDetails.get(i).getInvoiceNo() + ".pdf";
                 addPdfToZip(pdfFileName, pdf, zipOut);
             }
 
@@ -54,11 +54,11 @@ public class UtilityClass {
 
         return zipFilePath;
     }
-    public static ByteArrayOutputStream generateSinglePdf(TransportDetails transportDetails,SpringTemplateEngine templateEngine) throws IOException, DocumentException {
+    public static ByteArrayOutputStream generateSinglePdf(InvoiceDetails invoiceDetails, SpringTemplateEngine templateEngine) throws IOException, DocumentException {
         // Create a Thymeleaf context and set variables
 
         Context context = new Context();
-        context.setVariable("transportDetails", transportDetails);
+        context.setVariable("invoiceDetails", invoiceDetails);
 
         // Render the Thymeleaf template into HTML
         String renderedHtmlContent = templateEngine.process("invoice", context);

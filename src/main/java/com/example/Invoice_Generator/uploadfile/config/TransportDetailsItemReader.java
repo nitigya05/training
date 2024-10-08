@@ -1,6 +1,6 @@
 package com.example.Invoice_Generator.uploadfile.config;
 
-import com.example.Invoice_Generator.domain.TransportDetails;
+import com.example.Invoice_Generator.domain.InvoiceDetails;
 import com.example.Invoice_Generator.uploadfile.service.FileUploadService;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class TransportDetailsItemReader implements ItemStreamReader<TransportDetails> {
+public class TransportDetailsItemReader implements ItemStreamReader<InvoiceDetails> {
 
-    private List<TransportDetails> transportDetailsList;
+    private List<InvoiceDetails> invoiceDetailsList;
     private int nextTransportDetailIndex;
     private String filePath;  // Add this to accept the file path
 
@@ -29,30 +29,30 @@ public class TransportDetailsItemReader implements ItemStreamReader<TransportDet
     private FileUploadService excelService;
 
     @Override
-    public TransportDetails read() throws IOException {
+    public InvoiceDetails read() throws IOException {
         if (isNotInitialized()) {
-            transportDetailsList = readExcelFile(filePath);
+            invoiceDetailsList = readExcelFile(filePath);
         }
 
-        TransportDetails nextTransportDetail = null;
+        InvoiceDetails nextTransportDetail = null;
 
-        if (nextTransportDetailIndex < transportDetailsList.size()) {
-            nextTransportDetail = transportDetailsList.get(nextTransportDetailIndex);
+        if (nextTransportDetailIndex < invoiceDetailsList.size()) {
+            nextTransportDetail = invoiceDetailsList.get(nextTransportDetailIndex);
             nextTransportDetailIndex++;
         } else {
             nextTransportDetailIndex = 0;
-            transportDetailsList = null;
+            invoiceDetailsList = null;
         }
 
         return nextTransportDetail;
     }
 
     private boolean isNotInitialized() {
-        return this.transportDetailsList == null;
+        return this.invoiceDetailsList == null;
     }
 
-    private List<TransportDetails> readExcelFile(String filePath) throws IOException {  // Use the dynamic file path
-        List<TransportDetails> detailsList = new ArrayList<>();
+    private List<InvoiceDetails> readExcelFile(String filePath) throws IOException {  // Use the dynamic file path
+        List<InvoiceDetails> detailsList = new ArrayList<>();
 
         try (FileInputStream file = new FileInputStream(new File(filePath))) {  // Use filePath here
             Workbook workbook = new XSSFWorkbook(file);
@@ -62,7 +62,7 @@ public class TransportDetailsItemReader implements ItemStreamReader<TransportDet
                 if (row.getRowNum() == 0) {
                     continue; // skip header row
                 }
-                TransportDetails details = excelService.mapRowToTransportDetails(row);
+                InvoiceDetails details = excelService.mapRowToTransportDetails(row);
                 detailsList.add(details);
             }
 

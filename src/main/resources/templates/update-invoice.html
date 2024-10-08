@@ -1,37 +1,154 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Update Invoice</title>
+    <title>Update Invoice Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .form-border {
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <h2 class="mt-4">Update Invoice Details</h2>
+    <form th:action="@{/invoice/update}" th:object="${invoiceDetails}" method="post">
 
-<div th:insert="commonLinks :: navigationLinks"></div>
+        <!-- Section: Hours and Kilometers -->
+        <div class="form-border">
+            <div class="row">
+                <!-- Planned HRS -->
+                <div class="col-md-4">
+                    <label for="totalHrs">Planned HRS:</label>
+                    <input type="number" th:field="*{totalHrs}" id="totalHrs" class="form-control" step="0.01">
+                </div>
 
-<h2>Update Invoice</h2>
+                <!-- ACTUAL HRS -->
+                <div class="col-md-4">
+                    <label for="actualHrs">Actual HRS:</label>
+                    <input type="number" th:field="*{actualHrs}" id="actualHrs" class="form-control" step="0.01">
+                </div>
 
-<form th:action="@{/invoices/update/{id}(id=${invoice.invoiceNo})}" th:object="${invoice}" method="post">
-    <div>
-        <label for="clientName">Client Name:</label>
-        <input type="text" id="clientName" th:field="*{clientName}" />
-    </div>
-    <div>
-        <label for="origin">Origin:</label>
-        <input type="text" id="origin" th:field="*{origin}" />
-    </div>
-    <div>
-        <label for="destination">Destination:</label>
-        <input type="text" id="destination" th:field="*{destination}" />
-    </div>
-    <div>
-        <label for="netAmount">Net Amount:</label>
-        <input type="text" id="netAmount" th:field="*{netAmount}" />
-    </div>
-    <!-- Add other fields as necessary -->
+                <!-- Base Fare -->
+                <div class="col-md-4">
+                    <label for="baseFare">Base Fare:</label>
+                    <input type="number" th:field="*{baseFare}" id="baseFare" class="form-control" step="0.01">
+                </div>
+            </div>
 
-    <div>
-        <button type="submit">Update</button>
-    </div>
-</form>
+            <div class="row mt-3">
+                <!-- Planned KM -->
+                <div class="col-md-4">
+                    <label for="basicKm">Planned KM:</label>
+                    <input type="number" th:field="*{basicKm}" id="basicKm" class="form-control" step="0.01">
+                </div>
 
+                <!-- Actual KM -->
+                <div class="col-md-4">
+                    <label for="actualKm">Actual KM:</label>
+                    <input type="number" th:field="*{actualKm}" id="actualKm" class="form-control" step="0.01">
+                </div>
+
+                <!-- Parking -->
+                <div class="col-md-4">
+                    <label for="parking">Parking:</label>
+                    <input type="number" th:field="*{parking}" id="parking" class="form-control" step="0.01">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <!-- TOLL -->
+                <div class="col-md-6">
+                    <label for="tollAndParking">Toll:</label>
+                    <input type="number" th:field="*{tollAndParking}" id="tollAndParking" class="form-control" step="0.01">
+                </div>
+
+                <!-- FOOD ALLOWANCE -->
+                <div class="col-md-6">
+                    <label for="foodAllowance">Food Allowance:</label>
+                    <input type="number" th:field="*{foodAllowance}" id="foodAllowance" class="form-control" step="0.01">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: Extra Hours and Kilometers -->
+        <div class="form-border">
+            <div class="row">
+                <!-- Extra HRS -->
+                <div class="col-md-4">
+                    <label for="extraHrs">Extra HRS:</label>
+                    <input type="number" th:field="*{extraHrs}" id="extraHrs" class="form-control" step="0.01">
+                </div>
+
+                <!-- Extra Per KM Rate -->
+                <div class="col-md-4">
+                    <label for="extraPerKmRate">Extra Per KM Rate:</label>
+                    <input type="number" th:field="*{extraPerKmRate}" id="extraPerKmRate" class="form-control" step="0.01">
+                </div>
+
+                <!-- Extra KM Rate -->
+                <div class="col-md-4">
+                    <label for="extraKmRate">Extra KM Rate:</label>
+                    <input type="number" th:field="*{extraKmRate}" id="extraKmRate" class="form-control" step="0.01">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <!-- Extra KM -->
+                <div class="col-md-4">
+                    <label for="extraKm">Extra KM:</label>
+                    <input type="number" th:field="*{extraKm}" id="extraKm" class="form-control" step="0.01">
+                </div>
+
+                <!-- Extra Per HR Rate -->
+                <div class="col-md-4">
+                    <label for="extraPerHrRate">Extra Per HR Rate:</label>
+                    <input type="number" th:field="*{extraPerHrRate}" id="extraPerHrRate" class="form-control" step="0.01">
+                </div>
+
+                <!-- Extra HR Rate -->
+                <div class="col-md-4">
+                    <label for="extraHrRate">Extra HR Rate:</label>
+                    <input type="number" th:field="*{extraHrRate}" id="extraHrRate" class="form-control" step="0.01">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: Total and GST Amount -->
+        <div class="form-border">
+            <div class="row">
+                <!-- Net Amount -->
+                <div class="col-md-12">
+                    <label for="netAmount">Net Amount:</label>
+                    <input type="number" th:field="*{netAmount}" id="netAmount" class="form-control" step="0.01">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <!-- GST Amount -->
+                <div class="col-md-6">
+                    <label for="gstAmount">GST Amount:</label>
+                    <input type="number" th:field="*{gstAmount}" id="gstAmount" class="form-control" step="0.01">
+                </div>
+
+                <!-- Total Amount (Including GST) -->
+                <div class="col-md-6">
+                    <label for="totalAmountIncludingGst">Total Amount (Including GST):</label>
+                    <input type="number" th:field="*{totalAmountIncludingGst}" id="totalAmountIncludingGst" class="form-control" step="0.01">
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary btn-block">Update Invoice</button>
+            </div>
+        </div>
+    </form>
+</div>
 </body>
 </html>

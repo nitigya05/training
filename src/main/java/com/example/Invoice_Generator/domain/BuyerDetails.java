@@ -21,7 +21,7 @@ public class BuyerDetails {
     @Column(nullable = false)
     private String address;
 
-    @Column(unique = true, nullable = true)
+    @Column
     private String gstNo;
 
     @Column(nullable = false)

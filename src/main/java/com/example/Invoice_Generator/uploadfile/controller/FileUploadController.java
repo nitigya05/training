@@ -1,7 +1,7 @@
 package com.example.Invoice_Generator.uploadfile.controller;
 
 
-import com.example.Invoice_Generator.domain.TransportDetails;
+import com.example.Invoice_Generator.domain.InvoiceDetails;
 import com.example.Invoice_Generator.uploadfile.service.FileUploadService;
 import com.example.Invoice_Generator.utility.UtilityClass;
 import jakarta.servlet.http.HttpServletResponse;
@@ -49,10 +49,10 @@ public class FileUploadController {
 
         try {
             // Save data from the Excel file to a list of TransportDetails
-            List<TransportDetails> transportDetails = excelService.saveExcelData(file);
+            List<InvoiceDetails> invoiceDetails = excelService.saveExcelData(file);
 
             // Save the ZIP file locally
-            String zipFilePath = UtilityClass.saveZipFileLocally(transportDetails, templateEngine);
+            String zipFilePath = UtilityClass.saveZipFileLocally(invoiceDetails, templateEngine);
 
             // Check if the ZIP file was successfully created
             if (zipFilePath == null || zipFilePath.isEmpty()) {

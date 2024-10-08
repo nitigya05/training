@@ -45,6 +45,7 @@
 <table border="1">
     <thead>
     <tr>
+        <th>Id</th>
         <th>Invoice No</th>
         <th>Client Name</th>
         <th>Origin</th>
@@ -59,6 +60,7 @@
     </thead>
     <tbody>
     <tr th:each="details : ${productPage}">
+        <td th:text="${details.id}"></td>
         <td th:text="${details.invoiceNo}"></td>
         <td th:text="${details.clientName}"></td>
         <td th:text="${details.origin}"></td>
@@ -68,10 +70,10 @@
         <td th:text="${details.driverName}"></td>
         <td th:text="${details.netAmount}"></td>
         <td>
-            <a th:href="@{/invoice/update/{id}(id=${details.invoiceNo})}">Update</a><br/>
+            <a th:href="@{/invoice/update/{id}(id=${details.id})}">Update</a><br/>
         </td>
         <td>
-            <a th:href="@{/invoice/download/{id}(id=${details.invoiceNo})}">Download</a><br/>
+            <a th:href="@{/invoice/download/{id}(id=${details.id})}">Download</a><br/>
         </td>
     </tr>
     </tbody>

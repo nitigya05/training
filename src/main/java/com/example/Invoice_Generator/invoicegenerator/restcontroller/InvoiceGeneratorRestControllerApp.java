@@ -1,6 +1,6 @@
 package com.example.Invoice_Generator.invoicegenerator.restcontroller;
 
-import com.example.Invoice_Generator.domain.TransportDetails;
+import com.example.Invoice_Generator.domain.InvoiceDetails;
 import com.example.Invoice_Generator.domain.dao.TransportDetailsRepo;
 import com.example.Invoice_Generator.invoicegenerator.service.InvoiceGeneratorService;
 import com.example.Invoice_Generator.utility.UtilityClass;
@@ -30,14 +30,14 @@ public class InvoiceGeneratorRestControllerApp {
 
 
     @GetMapping("/api/user/{userid}")
-    public List<TransportDetails> getAddress(@PathVariable int  userid) {
-        List<TransportDetails> address =  service.findTransportDetailsbyUserId(userid);
+    public List<InvoiceDetails> getAddress(@PathVariable int  userid) {
+        List<InvoiceDetails> address =  service.findTransportDetailsbyUserId(userid);
         return address;
     }
 
     @GetMapping("/api/user")
-    public List<TransportDetails> getAddress() {
-        List<TransportDetails> address =  service.findTransportDetailsAll();
+    public List<InvoiceDetails> getAddress() {
+        List<InvoiceDetails> address =  service.findTransportDetailsAll();
         return address;
     }
 
@@ -46,7 +46,7 @@ public class InvoiceGeneratorRestControllerApp {
     public void generatePdf(HttpServletResponse response) throws IOException, DocumentException {
         // Generate the first PDF
 
-        List<TransportDetails> address = repository.findAll();
+        List<InvoiceDetails> address = repository.findAll();
 
         // Save the ZIP file locally
         String zipFilePath = UtilityClass.saveZipFileLocally(address,templateEngine);
