@@ -174,7 +174,7 @@ public class FileUploadService {
             invoiceDetails.setTotalAmountIncludingGst(getBigDecimalFromCell(row.getCell(38))); // Total Amount Including GST
             invoiceDetails.setAdvance(getBigDecimalFromCell(row.getCell(39))); // Advance
             invoiceDetails.setBalance((int) row.getCell(40).getNumericCellValue()); // Balance
-            invoiceDetails.setGstApplicable1(row.getCell(41).getStringCellValue()); // GST Applicable 1
+          //  invoiceDetails.setGstApplicable1(row.getCell(41).getStringCellValue()); // GST Applicable 1
 
             // Set created and updated timestamps
             invoiceDetails.setCreatedAt(LocalDateTime.now());
