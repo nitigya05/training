@@ -1,0 +1,70 @@
+-- Table: public.invoice_detailss
+
+-- DROP TABLE IF EXISTS public.invoice_detailss;
+
+CREATE TABLE IF NOT EXISTS public.invoice_detailss
+(
+    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    invoice_no bigint NOT NULL,
+    invoice_date date NOT NULL,
+    date_of_service date,
+    company_code bigint,
+    buyer_id bigint,
+    user_id bigint,
+    billing_to character varying(255) COLLATE pg_catalog."default",
+    gst_applicable character varying(10) COLLATE pg_catalog."default",
+    gst_no character varying(50) COLLATE pg_catalog."default",
+    client_name character varying(255) COLLATE pg_catalog."default",
+    client_address text COLLATE pg_catalog."default",
+    origin character varying(255) COLLATE pg_catalog."default",
+    destination character varying(255) COLLATE pg_catalog."default",
+    no_of_days integer,
+    vehicle_no character varying(50) COLLATE pg_catalog."default",
+    vehicle_type character varying(255) COLLATE pg_catalog."default",
+    driver_name character varying(255) COLLATE pg_catalog."default",
+    total_hrs numeric(10,2),
+    actual_hrs numeric(10,2),
+    extra_hrs numeric(10,2),
+    basic_km numeric(10,2),
+    base_fare numeric(10,2),
+    actual_km numeric(10,2),
+    extra_km numeric(10,2),
+    extra_per_km_rate numeric(10,2),
+    extra_per_hr_rate numeric(10,2),
+    extra_hr_rate numeric(10,2),
+    extra_km_rate numeric(10,2),
+    food_allowance numeric(10,2),
+    toll_and_parking numeric(10,2),
+    parking numeric(10,2),
+    net_amount numeric(10,2),
+    cgst_percent numeric(10,2),
+    sgst_percent numeric(10,2),
+    igst_percent numeric(10,2),
+    cgst numeric(10,2),
+    sgst numeric(10,2),
+    igst numeric(10,2),
+    gst_amount numeric(10,2),
+    total_amount_including_gst numeric(10,2),
+    advance numeric(10,2),
+    balance integer,
+    gst_applicable_1 character varying(10) COLLATE pg_catalog."default",
+    grand_net_amount_inwords text COLLATE pg_catalog."default",
+    created_at timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    updated_at timestamp without time zone,
+    updated_by character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT invoice_detailss_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_buyer FOREIGN KEY (buyer_id)
+        REFERENCES public.buyer_details (buyer_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_user FOREIGN KEY (user_id)
+        REFERENCES public.user_details (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.invoice_detailss
+    OWNER to postgres;
