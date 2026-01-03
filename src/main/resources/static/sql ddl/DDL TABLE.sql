@@ -118,10 +118,10 @@ VALUES (
  INSERT INTO bank_details ( bank_name, account_no, branch, ifsc_code,created_by)
 VALUES (
 
-    'YES BANK',
-    '072852000005482',
-    'WAKAD',
-    'YESB0000728',1
+    'BANK OF MAHARASHTRA',
+    '60562790375',
+    'SUS',
+    'MAHB0001945',1
 );
 
 

@@ -107,6 +107,9 @@ public class InvoiceDetails {
     @Column(name = "food_allowance", precision = 10, scale = 2)
     private BigDecimal foodAllowance;
 
+    @Column(name = "night_hold", precision = 10, scale = 2)
+    private BigDecimal nightHold;
+
     @Column(name = "toll_and_parking", precision = 10, scale = 2)
     private BigDecimal tollAndParking;
 

@@ -164,9 +164,9 @@ public class FileUploadService {
             invoiceDetails.setTollAndParking(getBigDecimalFromCell(row.getCell(28))); // Toll and Parking
             invoiceDetails.setParking(getBigDecimalFromCell(row.getCell(29))); // Parking
             invoiceDetails.setNetAmount(getBigDecimalFromCell(row.getCell(30))); // Net Amount
-            invoiceDetails.setCgstPercent(getBigDecimalFromCell(row.getCell(31))); // CGST %
-            invoiceDetails.setSgstPercent(getBigDecimalFromCell(row.getCell(32))); // SGST %
-            invoiceDetails.setIgstPercent(getBigDecimalFromCell(row.getCell(33))); // IGST %
+            invoiceDetails.setCgstPercent(getBigDecimalFromCell(row.getCell(31)).multiply(BigDecimal.valueOf(100))); // CGST %
+            invoiceDetails.setSgstPercent(getBigDecimalFromCell(row.getCell(32)).multiply(BigDecimal.valueOf(100))); // SGST %
+            invoiceDetails.setIgstPercent(getBigDecimalFromCell(row.getCell(33)).multiply(BigDecimal.valueOf(100))); // IGST %
             invoiceDetails.setCgst(getBigDecimalFromCell(row.getCell(34))); // CGST
             invoiceDetails.setSgst(getBigDecimalFromCell(row.getCell(35))); // SGST
             invoiceDetails.setIgst(getBigDecimalFromCell(row.getCell(36))); // IGST
@@ -174,7 +174,7 @@ public class FileUploadService {
             invoiceDetails.setTotalAmountIncludingGst(getBigDecimalFromCell(row.getCell(38))); // Total Amount Including GST
             invoiceDetails.setAdvance(getBigDecimalFromCell(row.getCell(39))); // Advance
             invoiceDetails.setBalance((int) row.getCell(40).getNumericCellValue()); // Balance
-          //  invoiceDetails.setGstApplicable1(row.getCell(41).getStringCellValue()); // GST Applicable 1
+            invoiceDetails.setNightHold(getBigDecimalFromCell(row.getCell(41))); // Food Allowance
 
             // Set created and updated timestamps
             invoiceDetails.setCreatedAt(LocalDateTime.now());
